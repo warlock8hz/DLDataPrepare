@@ -85,7 +85,8 @@ size_t LineBuf2Ptr(std::vector<std::string>& vstrBuf,
 	return ptrCld->points.size(); 
 }
 
-size_t GetAllFiles(std::string strInputPath, std::string strOutputPath,
+size_t GetAllFiles(const size_t sHowMany,
+	std::string strInputPath, std::string strOutputPath,
 	std::vector<std::string>& vstrFileNameList,
 	std::vector<std::string>& vstrOutputPathNameList)
 {
@@ -93,6 +94,7 @@ size_t GetAllFiles(std::string strInputPath, std::string strOutputPath,
 	vstrOutputPathNameList.clear(); 
 
 	std::string strTxtExt = "txt";
+	std::string strPcdExt = "pcd";
 	std::string strSlash = "\\";
 	std::string strPath = strInputPath + strSlash; //strTemp;
 
@@ -104,12 +106,13 @@ size_t GetAllFiles(std::string strInputPath, std::string strOutputPath,
 			//std::cout << i->path().filename().string() << std::endl; 
 			std::string strFileName = i->path().filename().string();
 			std::string strFileExt(strFileName, strFileName.size() - 3, 3);
-			if (boost::iequals(strFileExt, strTxtExt))
+			if (boost::iequals(strFileExt, strPcdExt))
 			{
 				std::string strPathName = strInputPath + strSlash + strFileName;
-				//std::string strOutputFolderName = strFileName.substr(0, strFileName.size() - 4);
 				vstrFileNameList.push_back(strFileName);
-				vstrOutputPathNameList.push_back(strOutputPath + strSlash + strFileName);
+				strFileName = strFileName.substr(0, strFileName.size() - 4);
+				for (size_t si = 0; si < sHowMany; si++)
+					vstrOutputPathNameList.push_back(strOutputPath + strSlash + strFileName + std::to_string(si) + ".txt");
 			}
 		}
 		else

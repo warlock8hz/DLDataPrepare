@@ -13,6 +13,7 @@ bool Line2Pt3d(std::string strLine, pcl::PointXYZ& ptXYZ);
 size_t LineBuf2Ptr(std::vector<std::string>& vstrBuf,
 	pcl::PointCloud<pcl::PointXYZ>::Ptr ptrCld); 
 
-size_t GetAllFiles(std::string strInputPath, std::string strOutputPath,
+size_t GetAllFiles(const size_t sHowMany, 
+	std::string strInputPath, std::string strOutputPath,
 	std::vector<std::string>& vstrFileNameList,
 	std::vector<std::string>& vstrOutputPathNameList); 
